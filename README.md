@@ -1,7 +1,7 @@
 # @livelybone/react-pagination
 [![NPM Version](http://img.shields.io/npm/v/@livelybone/react-pagination.svg?style=flat-square)](https://www.npmjs.com/package/@livelybone/react-pagination)
 [![Download Month](http://img.shields.io/npm/dm/@livelybone/react-pagination.svg?style=flat-square)](https://www.npmjs.com/package/@livelybone/react-pagination)
-![gzip with dependencies: 1.5kb](https://img.shields.io/badge/gzip--with--dependencies-1.5kb-brightgreen.svg "gzip with dependencies: 1.5kb")
+![gzip with dependencies: 3kb](https://img.shields.io/badge/gzip--with--dependencies-3kb-brightgreen.svg "gzip with dependencies: 3kb")
 ![typescript](https://img.shields.io/badge/typescript-supported-blue.svg "typescript")
 ![pkg.module](https://img.shields.io/badge/pkg.module-supported-blue.svg "pkg.module")
 
