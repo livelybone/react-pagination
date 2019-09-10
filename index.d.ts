@@ -19,7 +19,6 @@ declare const inputConfigDefault: {
    * */
   text: React.ReactNode
 }
-
 declare const turnBtns: {
   pre: {
     /**

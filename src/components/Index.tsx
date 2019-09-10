@@ -231,17 +231,20 @@ export default class ReactPagination extends React.Component<
   }
 
   onPageChange = (pageNumber: number | string) => {
-    this.setState({ $currentPageNumber: pageNumber + '' })
+    const $currentPageNumber = pageNumber + ''
+    if (this.state.$currentPageNumber !== $currentPageNumber) {
+      this.setState({ $currentPageNumber })
 
-    const { onPageChange } = this.props
-    if (onPageChange && pageNumber) {
-      if (this.debounceTime) {
-        clearTimeout(this.timer)
-        this.timer = setTimeout(
-          () => onPageChange(+pageNumber),
-          this.debounceTime,
-        )
-      } else onPageChange(+pageNumber)
+      const { onPageChange } = this.props
+      if (onPageChange && pageNumber) {
+        if (this.debounceTime) {
+          clearTimeout(this.timer)
+          this.timer = setTimeout(
+            () => onPageChange(+pageNumber),
+            this.debounceTime,
+          )
+        } else onPageChange(+pageNumber)
+      }
     }
   }
 
