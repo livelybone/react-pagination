@@ -6,20 +6,31 @@ declare const inputConfigDefault: Readonly<{
    * 是否启用输入
    *
    * Is input enabled
+   *
+   * Default: true
    * */
   enable: boolean
   /**
    * 输入框的 label 名称
    *
    * The text of label
+   *
+   * Default: 'Go to'
    * */
   text: React.ReactNode
 }>
+
 declare const turnBtns: Readonly<{
   pre: {
+    /**
+     * Default: '<'
+     * */
     text: React.ReactNode
   }
   next: {
+    /**
+     * Default: '>'
+     * */
     text: React.ReactNode
   }
 }>
@@ -114,20 +125,30 @@ declare class ReactPagination extends React.Component<
      * 是否启用输入
      *
      * Is input enabled
+     *
+     * Default: true
      * */
     enable: boolean
     /**
      * 输入框的 label 名称
      *
      * The text of label
+     *
+     * Default: 'Go to'
      * */
     text: React.ReactNode
   }>
   readonly turnBtns: {
     pre: {
+      /**
+       * Default: '<'
+       * */
       text: React.ReactNode
     }
     next: {
+      /**
+       * Default: '>'
+       * */
       text: React.ReactNode
     }
   }

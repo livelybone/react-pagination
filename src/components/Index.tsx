@@ -6,21 +6,31 @@ const inputConfigDefault = Object.freeze({
    * 是否启用输入
    *
    * Is input enabled
+   *
+   * Default: true
    * */
   enable: true,
   /**
    * 输入框的 label 名称
    *
    * The text of label
+   *
+   * Default: 'Go to'
    * */
   text: 'Go to' as React.ReactNode,
 })
 
 const turnBtns = Object.freeze({
   pre: {
+    /**
+     * Default: '<'
+     * */
     text: '<' as React.ReactNode,
   },
   next: {
+    /**
+     * Default: '>'
+     * */
     text: '>' as React.ReactNode,
   },
 })
