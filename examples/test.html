@@ -24,7 +24,14 @@ function Comp(props) {
   return cr(
     'div',
     null,
-    cr(ReactPagination, {currentPageNumber, pageSize: 10, pageCount: 10, onPageChange(page){setPage(page)}})
+    cr(ReactPagination.default, {
+      // currentPageNumber,
+      pageSize: 10,
+      pageCount: 10,
+      onPageChange(page) {
+        setPage(page)
+      },
+    }),
   )
 }
 

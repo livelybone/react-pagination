@@ -1,7 +1,7 @@
 import ReactInput, { InputElType } from '@livelybone/react-input'
 import React from 'react'
 
-const inputConfigDefault = Object.freeze({
+const inputConfigDefault = {
   /**
    * 是否启用输入
    *
@@ -18,9 +18,9 @@ const inputConfigDefault = Object.freeze({
    * Default: 'Go to'
    * */
   text: 'Go to' as React.ReactNode,
-})
+}
 
-const turnBtns = Object.freeze({
+const turnBtns = {
   pre: {
     /**
      * Default: '<'
@@ -33,7 +33,7 @@ const turnBtns = Object.freeze({
      * */
     text: '>' as React.ReactNode,
   },
-})
+}
 
 /**
  * 是否显示数字按钮：HasPage - 显示，NoPage - 不显示
@@ -47,11 +47,11 @@ export enum RenderMode {
 }
 
 export interface PaginationProps {
+  pageSize: number
   /**
    * Start with 1: >= 1
    * */
-  currentPageNumber: number
-  pageSize: number
+  currentPageNumber?: number
   /**
    * 如果 pageCount === undefined，组件将使用 NoPage 模式渲染
    *
@@ -167,7 +167,7 @@ export default class ReactPagination extends React.Component<
   }
 
   get currentPageNumber() {
-    return +this.state.$currentPageNumber || this.props.currentPageNumber
+    return +this.state.$currentPageNumber || this.props.currentPageNumber || 1
   }
 
   get pagesArr() {
