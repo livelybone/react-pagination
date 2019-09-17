@@ -112,10 +112,10 @@ declare class ReactPagination extends React.Component<
   PaginationProps,
   PaginationState
 > {
-  state: {
-    $currentPageNumber: string
-  }
   private timer
+
+  constructor(props: PaginationProps)
+
   readonly renderMode: RenderMode
   readonly currentPageSize: number
   readonly pageCount: number
