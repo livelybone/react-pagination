@@ -18,14 +18,14 @@ var cr = React.createElement
 
 // do something ...
 function Comp(props) {
-  const [currentPageNumber, setPage] = React.useState(1)
+  const [currentPageNumber, setPage] = React.useState(5)
   console.log(currentPageNumber)
 
   return cr(
     'div',
     null,
     cr(ReactPagination.default, {
-      // currentPageNumber,
+      currentPageNumber,
       pageSize: 10,
       pageCount: 10,
       onPageChange(page) {

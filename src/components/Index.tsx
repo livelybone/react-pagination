@@ -125,11 +125,14 @@ export default class ReactPagination extends React.Component<
   PaginationProps,
   PaginationState
 > {
-  state = {
-    $currentPageNumber: '1',
-  }
-
   private timer: any = null
+
+  constructor(props: PaginationProps) {
+    super(props)
+    this.state = {
+      $currentPageNumber: (props.currentPageNumber || 1) + '',
+    }
+  }
 
   get renderMode() {
     return this.props.pageCount !== undefined
@@ -224,6 +227,7 @@ export default class ReactPagination extends React.Component<
     state: PaginationState,
   ) {
     const page = +state.$currentPageNumber
+    console.log(props, state)
     if (page && props.currentPageNumber !== page) {
       return { $currentPageNumber: props.currentPageNumber + '' }
     }
