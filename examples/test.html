@@ -20,6 +20,10 @@ var cr = React.createElement
 function Comp(props) {
   const [currentPageNumber, setPage] = React.useState(5)
   console.log(currentPageNumber)
+  // setTimeout(() => {
+  //   setPage(pre => pre + 1)
+  // }, 1000)
+
 
   return cr(
     'div',

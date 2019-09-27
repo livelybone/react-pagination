@@ -222,7 +222,7 @@ export default class ReactPagination extends React.Component<
     return this.props.debounceTime !== undefined ? this.props.debounceTime : 500
   }
 
-  static getDerivedStateFroProps(
+  static getDerivedStateFromProps(
     props: PaginationProps,
     state: PaginationState,
   ) {
