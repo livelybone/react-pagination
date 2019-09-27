@@ -161,7 +161,7 @@ declare class ReactPagination extends React.Component<
   readonly hide: boolean
   readonly debounceTime: number
 
-  static getDerivedStateFroProps(
+  static getDerivedStateFromProps(
     props: PaginationProps,
     state: PaginationState,
   ): {
