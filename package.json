@@ -1,6 +1,6 @@
 {
   "name": "@livelybone/react-pagination",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "A react pagination component",
   "main": "./lib/umd/index.js",
   "module": "./lib/es/index.js",

@@ -50,7 +50,7 @@ interface PaginationProps {
   /**
    * Start with 1: >= 1
    * */
-  currentPageNumber?: number
+  initPageNumber?: number
   /**
    * 如果 pageCount === undefined，组件将使用 NoPage 模式渲染
    *
@@ -160,15 +160,7 @@ declare class ReactPagination extends React.Component<
   }
   readonly hide: boolean
   readonly debounceTime: number
-
-  static getDerivedStateFromProps(
-    props: PaginationProps,
-    state: PaginationState,
-  ): {
-    $currentPageNumber: string
-  } | null
-
-  onPageChange: (pageNumber: React.ReactText) => void
+  setPageNumber: (pageNumber: React.ReactText, triggerChange?: boolean) => void
   toPre: () => void
   toNext: () => void
   preFormatter: (val: string) => string

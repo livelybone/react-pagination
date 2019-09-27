@@ -36,8 +36,83 @@ npm i -S @livelybone/react-pagination
 See in [index.d.ts](./index.d.ts)
 
 ## Usage
-```js
+```typescript jsx
+import React, { useRef } from 'react'
 import ReactPagination from '@livelybone/react-pagination'
+
+
+// HasPage mode
+const Comp = () => (
+  <ReactPagination
+    pageSize={10}
+    initPageNumber={1}
+    pageCount={10}
+    currentPageSize={undefined}
+    maxPageBtn={7}
+    inputConfig={{
+     enable: true,
+     text: 'Go to',
+    }}
+    turnBtns={{
+     pre: { text: '<' },
+     next: { text: '>' },
+    }}
+    debounceTime={500}
+    onPageChange={console.log}
+  />
+)
+
+
+// NoPage mode
+const Comp1 = () => (
+  <ReactPagination
+    pageSize={10}
+    initPageNumber={1}
+    pageCount={undefined}
+    currentPageSize={10}
+    maxPageBtn={7}
+    inputConfig={{
+      enable: true,
+      text: 'Go to',
+    }}
+    turnBtns={{
+      pre: { text: '<' },
+      next: { text: '>' },
+    }}
+    debounceTime={500}
+    onPageChange={console.log}
+  />
+)
+
+// This component will maintain the current page number automatically
+// If you want to change the page number outside of it, please use `setPageNumber` method:
+let page = 1
+const Comp2 = ({props}) => {
+  const paginationProps = {
+    pageSize: 10,
+    onPageChange: console.log
+    // ...
+  }
+  
+  let paginationRef = useRef<ReactPagination>(null)
+ 
+  const setPageNumber = (page: number | string, triggerChange?: boolean) => {
+    paginationRef.current.setPageNumber(page, triggerChange)
+  }
+  
+  return (
+    <>
+      <ReactPagination
+        {...paginationProps}
+        ref={r => paginationRef = r}
+      />
+      <button onClick={() => setPageNumber(page += 1, true)}>
+        set page number outside of the pagination, 
+        and trigger to call the `onPageChange` prop
+      </button>
+    </>
+  )
+}
 ```
 
 ## style
