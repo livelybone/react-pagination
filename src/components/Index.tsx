@@ -72,6 +72,9 @@ export interface PaginationProps {
    * The max number of digital buttons
    *
    * Default: 7
+   * Value range: >= 5
+   * If it is 0, the component will render with the NoPage render mode
+   * Else if it < 5, the value will be reset to 5
    * */
   maxPageBtn?: number
   /**
@@ -166,7 +169,9 @@ export default class ReactPagination extends React.Component<
   }
 
   get maxPageBtn() {
-    return this.props.maxPageBtn || 7
+    return this.props.maxPageBtn && this.props.maxPageBtn >= 5
+      ? this.props.maxPageBtn
+      : 5
   }
 
   get currentPageNumber() {
@@ -176,10 +181,10 @@ export default class ReactPagination extends React.Component<
   get pagesArr() {
     const { currentPageNumber } = this
     const { pageCount } = this.props
-
-    if (!pageCount) return []
-
     const { maxPageBtn } = this
+
+    if (!pageCount || this.props.maxPageBtn === 0) return []
+
     if (pageCount <= maxPageBtn) {
       return [...Array(pageCount)].map((val, i) => i + 1)
     }
@@ -193,6 +198,7 @@ export default class ReactPagination extends React.Component<
         [...Array(maxPageBtn - 2)].map((val, i) => pageCount - i).reverse(),
       )
     }
+
     return [1, '...']
       .concat(
         [...Array(maxPageBtn - 4)].map(
