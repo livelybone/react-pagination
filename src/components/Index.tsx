@@ -232,20 +232,22 @@ export default class ReactPagination extends React.Component<
     pageNumber: number | string,
     triggerChange: boolean = false,
   ) => {
-    const $currentPageNumber = pageNumber + ''
-    if (this.state.$currentPageNumber !== $currentPageNumber) {
-      this.setState({ $currentPageNumber })
+    if (!isNaN(+pageNumber)) {
+      const $currentPageNumber = pageNumber + ''
+      if (this.state.$currentPageNumber !== $currentPageNumber) {
+        if ($currentPageNumber) this.setState({ $currentPageNumber })
 
-      if (triggerChange) {
-        const { onPageChange } = this.props
-        if (onPageChange && pageNumber) {
-          if (this.debounceTime) {
-            clearTimeout(this.timer)
-            this.timer = setTimeout(
-              () => onPageChange(+pageNumber),
-              this.debounceTime,
-            )
-          } else onPageChange(+pageNumber)
+        if (triggerChange) {
+          const { onPageChange } = this.props
+          if (onPageChange && pageNumber) {
+            if (this.debounceTime) {
+              clearTimeout(this.timer)
+              this.timer = setTimeout(
+                () => onPageChange(+pageNumber),
+                this.debounceTime,
+              )
+            } else onPageChange(+pageNumber)
+          }
         }
       }
     }
@@ -275,6 +277,7 @@ export default class ReactPagination extends React.Component<
   }
 
   input = (ev: React.ChangeEvent<InputElType>) => {
+    ev.target.value = this.preFormatter(ev.target.value)
     this.setPageNumber(ev.target.value, true)
   }
 
@@ -289,7 +292,6 @@ export default class ReactPagination extends React.Component<
               <ReactInput
                 className="input"
                 value={this.state.$currentPageNumber}
-                preFormatter={this.preFormatter}
                 onChange={this.input}
               />
             </>
@@ -304,7 +306,7 @@ export default class ReactPagination extends React.Component<
             <div
               className={`page-btn ${
                 this.currentPageNumber === +val ? 'active' : ''
-              } ${!+val ? 'disabled' : ''}`}
+              } ${!+val ? 'disabled' : ''}`.replace(/\s\s+/g, ' ')}
               key={i}
               onClick={this.setPageNumber.bind(this, +val, true)}
             >

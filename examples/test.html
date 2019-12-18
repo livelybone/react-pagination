@@ -20,7 +20,7 @@ var pRef = null
 // do something ...
 function Comp(props) {
   const [currentPageNumber, setPage] = React.useState(5)
-  console.log(currentPageNumber)
+  // console.log(currentPageNumber)
 
   return cr(
     'div',
@@ -28,7 +28,7 @@ function Comp(props) {
     cr(ReactPagination.default, {
       initPageNumber: currentPageNumber,
       pageSize: 10,
-      pageCount: 10,
+      pageCount: 60,
       maxPageBtn: 4,
       onPageChange(page) {
         setPage(page)

@@ -33,6 +33,7 @@ declare const turnBtns: {
     text: React.ReactNode
   }
 }
+
 /**
  * 是否显示数字按钮：HasPage - 显示，NoPage - 不显示
  *
@@ -43,6 +44,7 @@ declare enum RenderMode {
   HasPage = 0,
   NoPage = 1,
 }
+
 interface PaginationProps {
   pageSize: number
   /**
@@ -98,20 +100,25 @@ interface PaginationProps {
    * Default: 500
    * */
   debounceTime?: number
+
   /**
    * Called when the page changed
    * */
   onPageChange?(pageNumber: number): void
 }
+
 interface PaginationState {
   $currentPageNumber: string
 }
+
 declare class ReactPagination extends React.Component<
   PaginationProps,
   PaginationState
 > {
   private timer
+
   constructor(props: PaginationProps)
+
   readonly renderMode: RenderMode
   readonly currentPageSize: number
   readonly pageCount: number
@@ -161,6 +168,7 @@ declare class ReactPagination extends React.Component<
   toNext: () => void
   preFormatter: (val: string) => string
   input: (ev: React.ChangeEvent<InputElType>) => void
+
   render(): false | JSX.Element
 }
 
