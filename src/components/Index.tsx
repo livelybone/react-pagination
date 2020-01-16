@@ -51,7 +51,7 @@ export interface PaginationProps {
   /**
    * Start with 1: >= 1
    * */
-  initPageNumber?: number
+  pageIndex?: number
   /**
    * 如果 pageCount === undefined，组件将使用 NoPage 模式渲染
    *
@@ -133,7 +133,7 @@ export default class ReactPagination extends React.Component<
   constructor(props: PaginationProps) {
     super(props)
     this.state = {
-      $currentPageNumber: (props.initPageNumber || 1) + '',
+      $currentPageNumber: (props.pageIndex || 1) + '',
     }
   }
 
@@ -175,7 +175,7 @@ export default class ReactPagination extends React.Component<
   }
 
   get currentPageNumber() {
-    return +this.state.$currentPageNumber || this.props.initPageNumber || 1
+    return +this.state.$currentPageNumber || this.props.pageIndex || 1
   }
 
   get pagesArr() {
@@ -230,23 +230,29 @@ export default class ReactPagination extends React.Component<
 
   setPageNumber = (
     pageNumber: number | string,
-    triggerChange: boolean = false,
+    triggerChange: boolean | ((page: number) => boolean) = false,
   ) => {
-    if (!isNaN(+pageNumber)) {
-      const $currentPageNumber = pageNumber + ''
+    const page = Math.min(Math.max(1, +pageNumber), this.pageCount || Infinity)
+    if (!isNaN(page)) {
+      const $currentPageNumber = page + ''
       if (this.state.$currentPageNumber !== $currentPageNumber) {
         if ($currentPageNumber) this.setState({ $currentPageNumber })
 
-        if (triggerChange) {
+        if (
+          (typeof triggerChange === 'function'
+            ? triggerChange(page)
+            : triggerChange) ||
+          page !== +pageNumber
+        ) {
           const { onPageChange } = this.props
-          if (onPageChange && pageNumber) {
+          if (onPageChange && page) {
             if (this.debounceTime) {
               clearTimeout(this.timer)
               this.timer = setTimeout(
-                () => onPageChange(+pageNumber),
+                () => onPageChange(page),
                 this.debounceTime,
               )
-            } else onPageChange(+pageNumber)
+            } else onPageChange(page)
           }
         }
       }
@@ -254,15 +260,12 @@ export default class ReactPagination extends React.Component<
   }
 
   toPre = () => {
-    this.setPageNumber(Math.max(1, this.currentPageNumber - 1), true)
+    this.setPageNumber(this.currentPageNumber - 1, true)
   }
 
   toNext = () => {
     if (this.renderMode !== RenderMode.NoPage)
-      this.setPageNumber(
-        Math.min(this.pageCount, this.currentPageNumber + 1),
-        true,
-      )
+      this.setPageNumber(this.currentPageNumber + 1, true)
     else if (this.props.pageSize <= this.currentPageSize)
       this.setPageNumber(this.currentPageNumber + 1, true)
   }
@@ -322,5 +325,18 @@ export default class ReactPagination extends React.Component<
         </div>
       )
     )
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<PaginationProps>,
+    prevState: Readonly<PaginationState>,
+  ): void {
+    if (
+      prevProps.pageIndex !== this.props.pageIndex &&
+      Number(this.props.pageIndex || 1) !==
+        Number(this.state.$currentPageNumber)
+    ) {
+      this.setPageNumber(this.props.pageIndex || 1)
+    }
   }
 }
